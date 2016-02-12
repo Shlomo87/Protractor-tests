@@ -6,12 +6,7 @@ function AngularToDoPage() {
   var todoListCheckboxes = element.all(by.model('todo.done'));
   var remainingField = element(by.binding('todoList.remaining()'));
   var archiveButton = element(by.linkText('archive'));
-
-
-  this.go = function() {
-    browser.get('http://www.angularjs.org');
-  };
-
+ 
   this.enterText = function(text) {
     input.sendKeys(text);
   };
@@ -40,19 +35,14 @@ function AngularToDoPage() {
       archiveButton.click();
   }
 
-   
-    
-
-
-
 }
 
 
 
-function ToDoList() {
+function ToDoItem() {
     var angulartodopage = new AngularToDoPage();
 
-    this.addItem = function (name) {
+    this.add = function (name) {
         angulartodopage.enterText(name);
         angulartodopage.clickAddButton();
         
@@ -62,7 +52,7 @@ function ToDoList() {
         return angulartodopage.todoListGetCount();
     }
 
-    this.getItemName = function (index) {
+    this.getName = function (index) {
         return angulartodopage.todoListGetItem(index);
     }
  
@@ -70,96 +60,82 @@ function ToDoList() {
         return angulartodopage.getRemainingField();
     }
 
-    
+    this.markDone = function (index) {
+        angulartodopage.todoListClickChecbox(index);
+    }
 
-
-
+    this.archive = function () {
+        angulartodopage.clickArchiveButton();
+    }
 
 }
 
 
 
+var inputItemName1 = 'item1';
+var inputItemName2 = 'Artifact';
+var inputItemName3 = 'item%^&';
+var inputItemName4 = 'item >12';
+var inputItemName5 = '88item';
 
-
-
-
-
-
-
-
-
-
-var inputItemName = 'item1';
-
-
+beforeEach(function () {
+    browser.get('http://www.angularjs.org');
+});
 
 
 describe('Angular homepage', function() {
 
-    /*
-    it('Adding new item', function() {
-        var angulartodopage = new AngularToDoPage();
-        var todooList = new ToDoList();
+    it('Adding 1 new item', function () {
 
-        angulartodopage.go();
+        var todoitem = new ToDoItem();
 
-        todooList.addItem(inputItemName);
+        todoitem.add(inputItemName1);
 
-        
-
-
-
-        expect(todooList.getCount()).toEqual(3);
-
-        expect(todooList.getItemName(0)).toEqual('learn angular');
-
-        expect(todooList.getItemName(1)).toEqual('build an angular app');
-
-        expect(todooList.getItemName(2)).toEqual(inputItemName);
-
-        expect(todooList.getRemainingFieldValue()).toEqual('2 of 3 remaining');
-
-       
-
+        expect(todoitem.getCount()).toEqual(3);
+        expect(todoitem.getName(0)).toEqual('learn angular');
+        expect(todoitem.getName(1)).toEqual('build an angular app');
+        expect(todoitem.getName(2)).toEqual(inputItemName1);
+        expect(todoitem.getRemainingFieldValue()).toEqual('2 of 3 remaining');
 
     })
-    */
 
-    it('Archiving items', function () {
-        var angulartodopage = new AngularToDoPage();
-        var todooList = new ToDoList();
-
-        angulartodopage.go();
-
-        var checkbox = element.all(by.model('todo.done')).get(1);
-
-        //checkbox.isEnabled().then(function (result) { if (result) checkbox.click() });
-
-
-        //browser.sleep(7000);
-
+    it('Adding 2 new items', function () {
         
-        
-        expect(checkbox.isEnabled()).toEqual(true);
+        var todoitem = new ToDoItem();
 
+        todoitem.add(inputItemName4);
+        todoitem.add(inputItemName5);
         
+        expect(todoitem.getCount()).toEqual(4);
+        expect(todoitem.getName(0)).toEqual('learn angular');
+        expect(todoitem.getName(1)).toEqual('build an angular app');
+        expect(todoitem.getName(2)).toEqual(inputItemName4);
+        expect(todoitem.getName(3)).toEqual(inputItemName5);
+        expect(todoitem.getRemainingFieldValue()).toEqual('3 of 4 remaining');
+         
     })
     
 
+    it('Archiving several items', function () {
+        
+        var todoitem = new ToDoItem();
 
-    
+        todoitem.add(inputItemName2);
+        todoitem.add(inputItemName3);
 
+        todoitem.markDone(2);
 
+        todoitem.archive();
 
+        expect(todoitem.getCount()).toEqual(2);
+        expect(todoitem.getName(0)).toEqual('build an angular app');
 
+        expect(todoitem.getName(1)).toEqual(inputItemName3);
 
+        expect(todoitem.getRemainingFieldValue()).toEqual('2 of 2 remaining');
 
+    })
 
-
-
-    
-
-  
     });
 
 
