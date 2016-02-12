@@ -71,7 +71,8 @@ function ToDoItem() {
 }
 
 
-
+var defaultItem1Name = 'learn angular';
+var defaultItem2Name = 'build an angular app';
 var inputItemName1 = 'item1';
 var inputItemName2 = 'Artifact';
 var inputItemName3 = 'item%^&';
@@ -92,8 +93,8 @@ describe('Angular homepage', function() {
         todoitem.add(inputItemName1);
 
         expect(todoitem.getCount()).toEqual(3);
-        expect(todoitem.getName(0)).toEqual('learn angular');
-        expect(todoitem.getName(1)).toEqual('build an angular app');
+        expect(todoitem.getName(0)).toEqual(defaultItem1Name);
+        expect(todoitem.getName(1)).toEqual(defaultItem2Name);
         expect(todoitem.getName(2)).toEqual(inputItemName1);
         expect(todoitem.getRemainingFieldValue()).toEqual('2 of 3 remaining');
 
@@ -107,8 +108,8 @@ describe('Angular homepage', function() {
         todoitem.add(inputItemName5);
         
         expect(todoitem.getCount()).toEqual(4);
-        expect(todoitem.getName(0)).toEqual('learn angular');
-        expect(todoitem.getName(1)).toEqual('build an angular app');
+        expect(todoitem.getName(0)).toEqual(defaultItem1Name);
+        expect(todoitem.getName(1)).toEqual(defaultItem2Name);
         expect(todoitem.getName(2)).toEqual(inputItemName4);
         expect(todoitem.getName(3)).toEqual(inputItemName5);
         expect(todoitem.getRemainingFieldValue()).toEqual('3 of 4 remaining');
@@ -128,7 +129,7 @@ describe('Angular homepage', function() {
         todoitem.archive();
 
         expect(todoitem.getCount()).toEqual(2);
-        expect(todoitem.getName(0)).toEqual('build an angular app');
+        expect(todoitem.getName(0)).toEqual(defaultItem2Name);
 
         expect(todoitem.getName(1)).toEqual(inputItemName3);
 
