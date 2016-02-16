@@ -2,10 +2,10 @@
 function AngularToDoPage() {
   var input = element(by.model('todoList.todoText'));
   var addButton = element(by.buttonText('add'));
-  var todoListItems = element.all(by.repeater('todo in todoList.todos'));
-  var todoListCheckboxes = element.all(by.model('todo.done'));
-  var remainingField = element(by.binding('todoList.remaining()'));
-  var archiveButton = element(by.linkText('archive'));
+  this.todoListItems = element.all(by.repeater('todo in todoList.todos'));
+  this.todoListCheckboxes = element.all(by.model('todo.done'));
+  this.remainingField = element(by.binding('todoList.remaining()'));
+  this.archiveButton = element(by.linkText('archive'));
  
   this.enterText = function(text) {
     input.sendKeys(text);
@@ -49,23 +49,23 @@ function ToDoItem() {
     }
 
     this.getCount = function () {
-        return angulartodopage.todoListGetCount();
+        return angulartodopage.todoListItems.count();
     }
 
     this.getName = function (index) {
-        return angulartodopage.todoListGetItem(index);
+        return angulartodopage.todoListItems.get(index).getText();
     }
  
     this.getRemainingFieldValue = function () {
-        return angulartodopage.getRemainingField();
+        return angulartodopage.remainingField.getText();
     }
 
     this.markDone = function (index) {
-        angulartodopage.todoListClickChecbox(index);
+        angulartodopage.todoListCheckboxes.get(index).click();
     }
 
     this.archive = function () {
-        angulartodopage.clickArchiveButton();
+        angulartodopage.archiveButton.click();
     }
 
 }

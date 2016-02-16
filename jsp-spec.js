@@ -1,18 +1,85 @@
 
+function WireUpBackendPage() {
+
+    this.projects = element.all(by.repeater('project in projectList.projects'));
+    var seacrhField = element(by.model('projectList.search'));
+
+    this.getProjectsCount = function () {
+        return projects.count();
+    }
+
+    this.getProjectNameDesciptionByIndex = function (index) {
+        return projects.get(index).getText();
+    }
+
+    this.enterTextInSearchField = function (text) {
+        seacrhField.sendKeys(text);
+    }
+
+
+
+
+}
+/*
+function Project() {
+    var wireupbackendpage = new WireUpBackendPage();
+
+    this.getCount = function () {
+        return wireupbackendpage.projects.count();        
+    }
+
+    this.getNameDesciption = function (index) {
+        return wireupbackendpage.projects.get(index).getText();
+    }
+
+    
+
+
+
+}
+*/
+
+
+
+
+
+
 
 
 beforeEach(function () {
     browser.get('http://www.angularjs.org');
+    browser.sleep(5000);
 });
 
 
 describe('Wire up a Backend', function () {
 
-    it('Wire up a Backend', function () {
+  
+    
+    it('Check projects list', function () {
 
-        browser.sleep(5000);
+        var wireupbackendpage = new WireUpBackendPage();
+
+        
+
+        expect(wireupbackendpage.projects.count()).toEqual(12);
 
 
+        /*
+        var project = new Project();
+        
+        expect(project.getCount()).toEqual(12);
+
+        
+        expect(project.getNameDesciption(4)).toEqual('Ember Ambitious web apps.');
+        expect(project.getNameDesciption(9)).toEqual('React A JavaScript library for building user interfaces.');
+        */
+
+    })
+    
+
+
+        /*
         var projects = element.all(by.repeater('project in projectList.projects'));
         var seacrhField = element(by.model('projectList.search'));
         //var addProjectButton = element(by.className('icon-plus-sign'));
@@ -21,23 +88,12 @@ describe('Wire up a Backend', function () {
         editProjectButton.get(5).click();
 
         browser.sleep(5000);
-        /*
+    
         var a = element(by.buttonText('Save'));
         var a = element(by.buttonText('Delete'));
+    
+    var a = element(by.model('editProject.project.description'));
         */
-
-        var a = element(by.model('editProject.project.description'));
-
-        
-
-        
-
-        expect(a.getText()).toEqual(true);
-     
-
-    })
-
-   
 
         // Edit - Name, Website, Description fields
         /*
