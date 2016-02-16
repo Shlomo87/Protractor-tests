@@ -15,25 +15,7 @@ function AngularToDoPage() {
     addButton.click();
   };
 
-  this.todoListGetCount = function () {
-      return todoListItems.count();
-  }
-
-  this.todoListGetItem = function (index) {
-      return todoListItems.get(index).getText();
-  }
-
-  this.todoListClickChecbox = function (index) {
-      todoListCheckboxes.get(index).click();
-  }
-
-  this.getRemainingField = function () {
-      return remainingField.getText();
-  }
-
-  this.clickArchiveButton = function () {
-      archiveButton.click();
-  }
+  
 
 }
 
