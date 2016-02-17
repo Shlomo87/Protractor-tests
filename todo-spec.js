@@ -52,7 +52,7 @@ function ToDoItem() {
 
 }
 
-
+var todoitem = new ToDoItem();
 var defaultItem1Name = 'learn angular';
 var defaultItem2Name = 'build an angular app';
 var inputItemName1 = 'item1';
@@ -68,10 +68,7 @@ beforeEach(function () {
 
 describe('Angular homepage', function() {
 
-    it('Adding 1 new item', function () {
-
-        var todoitem = new ToDoItem();
-
+    it('Adding 1 new item', function () {   
         todoitem.add(inputItemName1);
 
         expect(todoitem.getCount()).toEqual(3);
@@ -79,13 +76,9 @@ describe('Angular homepage', function() {
         expect(todoitem.getName(1)).toEqual(defaultItem2Name);
         expect(todoitem.getName(2)).toEqual(inputItemName1);
         expect(todoitem.getRemainingFieldValue()).toEqual('2 of 3 remaining');
-
     })
 
-    it('Adding 2 new items', function () {
-        
-        var todoitem = new ToDoItem();
-
+    it('Adding 2 new items', function () { 
         todoitem.add(inputItemName4);
         todoitem.add(inputItemName5);
         
@@ -94,15 +87,11 @@ describe('Angular homepage', function() {
         expect(todoitem.getName(1)).toEqual(defaultItem2Name);
         expect(todoitem.getName(2)).toEqual(inputItemName4);
         expect(todoitem.getName(3)).toEqual(inputItemName5);
-        expect(todoitem.getRemainingFieldValue()).toEqual('3 of 4 remaining');
-         
+        expect(todoitem.getRemainingFieldValue()).toEqual('3 of 4 remaining');         
     })
     
 
-    it('Archiving several items', function () {
-        
-        var todoitem = new ToDoItem();
-
+    it('Archiving several items', function () { 
         todoitem.add(inputItemName2);
         todoitem.add(inputItemName3);
 
@@ -112,11 +101,8 @@ describe('Angular homepage', function() {
 
         expect(todoitem.getCount()).toEqual(2);
         expect(todoitem.getName(0)).toEqual(defaultItem2Name);
-
         expect(todoitem.getName(1)).toEqual(inputItemName3);
-
         expect(todoitem.getRemainingFieldValue()).toEqual('2 of 2 remaining');
-
     })
 
     });

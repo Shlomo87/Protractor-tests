@@ -94,7 +94,7 @@ function Project() {
 
 
 
-
+var project = new Project();
 var textLinkToWaitFor = 'Cappucino';
 var projectName = 'Project1';
 var projectWebsite = 'http://www.cappuccino-project.org/';
@@ -116,54 +116,35 @@ beforeEach(function () {
 describe('Wire up a Backend', function () {
 
     it('Check projects list', function () {
-
-        var project = new Project();
-
         expect(project.getCount()).toEqual(12);
         expect(project.getNameDesciption(4)).toEqual('Ember Ambitious web apps.');
         expect(project.getNameDesciption(9)).toEqual('React A JavaScript library for building user interfaces.');
-
     })
 
     it('Search by project name', function () {
-
-        var project = new Project();
-
         project.enterSearchText('Angular');
 
         expect(project.getCount()).toEqual(2);
         expect(project.getNameDesciption(1)).toEqual('AngularJS HTML enhanced for web apps!');
-
     })
 
     it('Search by project description', function () {
-
-        var project = new Project();
-
         project.enterSearchText('Model');
 
         expect(project.getCount()).toEqual(1);
         expect(project.getNameDesciption(0)).toEqual('Backbone Models for your apps.');
-
     })
 
     it('Adding project', function () {
-
-        var project = new Project();
-
         project.add(projectName, projectWebsite, projectDescription);
 
         waitProjectsLoad();
         
         expect(project.getCount()).toEqual(13);
         expect(project.getNameDesciption(9)).toEqual(projectName + ' ' + projectDescription);
-
     })
 
     it('Go to project site', function () {
-
-        var project = new Project();
-
         project.clickCappucinoLink();
 
         waitProjectsLoad();
@@ -173,11 +154,8 @@ describe('Wire up a Backend', function () {
         });
 
         expect(browser.driver.getCurrentUrl()).toEqual('http://www.cappuccino-project.org/');
-
     })
-
     
-     
     });
 
 
