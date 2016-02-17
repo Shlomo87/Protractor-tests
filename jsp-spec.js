@@ -87,15 +87,16 @@ function Project() {
 
 }
 
-
+var textLinkToWaitFor = 'Cappucino';
 var projectName = 'Project1';
 var projectWebsite = 'http://www.cappuccino-project.org/';
 var projectDescription = 'desciption';
 
+
 beforeEach(function () {
     browser.get('http://www.angularjs.org');
     browser.wait(function () {
-        return element(by.linkText("Cappucino")).isPresent();
+        return element(by.linkText(textLinkToWaitFor)).isPresent();
     }, 10000);
 });
 
@@ -140,7 +141,9 @@ describe('Wire up a Backend', function () {
 
         project.add(projectName, projectWebsite, projectDescription);
 
-        browser.sleep(3000);
+        browser.wait(function () {
+            return element(by.linkText(textLinkToWaitFor)).isPresent();
+        }, 10000);
         
         expect(project.getCount()).toEqual(13);
         expect(project.getNameDesciption(9)).toEqual(projectName + ' ' + projectDescription);
@@ -153,7 +156,9 @@ describe('Wire up a Backend', function () {
 
         project.clickCappucinoLink();
 
-        browser.sleep(3000);
+        browser.wait(function () {
+            return element(by.linkText(textLinkToWaitFor)).isPresent();
+        }, 10000);
 
         browser.getAllWindowHandles().then(function (windowHandles) {
             browser.switchTo().window(windowHandles[1]);
