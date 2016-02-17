@@ -8,6 +8,7 @@ function WireUpBackendPage() {
     var inputWebsite = element(by.model('editProject.project.site'));
     var inputDescription = element(by.model('editProject.project.description'));
     var saveButton = element(by.buttonText('Save'));
+    this.linkCappucino = element(by.linkText("Cappucino"));
 
     this.getProjectsCount = function () {
         return projects.count();
@@ -41,6 +42,8 @@ function WireUpBackendPage() {
         saveButton.click();
     }
 
+    
+
 
 
     
@@ -73,6 +76,10 @@ function Project() {
         wireupbackendpage.clickSaveButton();
     }
 
+    this.clickCappucinoLink = function () {
+        wireupbackendpage.linkCappucino.click();
+    }
+
             
 
 
@@ -87,22 +94,35 @@ var projectDescription = 'desciption';
 
 beforeEach(function () {
     browser.get('http://www.angularjs.org');
-    browser.sleep(5000);
+    browser.wait(function () {
+        return element(by.linkText("Cappucino")).isPresent();
+    }, 10000);
+    
 });
 
 
 describe('Wire up a Backend', function () {
 
-    it('Search by project name', function () {
+    it('Go to project site', function () {
 
         var project = new Project();
+        var wireupbackendpage = new WireUpBackendPage();
 
-        project.add(projectName, projectWebsite, projectDescription);
+        /*
+        browser.wait(function () {
+            return wireupbackendpage.linkCappucino.isPresent();
+        }, 10000);
+        */
 
-        browser.sleep(3000);
         
-        expect(project.getCount()).toEqual(13);
-        expect(project.getNameDesciption(9)).toEqual(projectName + ' ' + projectDescription);
+        
+
+        
+
+        
+        
+        
+        expect(wireupbackendpage.projects.get(3).isPresent()).toEqual(true);
 
     })   
     
@@ -185,6 +205,20 @@ describe('Wire up a Backend', function () {
 
 
     /*
+
+    it('Search by project name', function () {
+
+        var project = new Project();
+
+        project.add(projectName, projectWebsite, projectDescription);
+
+        browser.sleep(3000);
+        
+        expect(project.getCount()).toEqual(13);
+        expect(project.getNameDesciption(9)).toEqual(projectName + ' ' + projectDescription);
+
+    })
+
     it('Search by project name', function () {
 
         var project = new Project();
@@ -216,6 +250,23 @@ describe('Wire up a Backend', function () {
         expect(project.getNameDesciption(9)).toEqual('React A JavaScript library for building user interfaces.');
  
     })
+
+    it('Go to project site', function () {
+
+        var project = new Project();
+
+        project.clickCappucinoLink();
+
+        browser.sleep(3000);
+
+        browser.getAllWindowHandles().then(function (windowHandles) {
+            browser.switchTo().window(windowHandles[1]);
+        });
+        
+        expect(browser.driver.getCurrentUrl()).toEqual('http://www.cappuccino-project.org/');
+
+    }) 
+
     */
 
 
